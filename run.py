@@ -97,8 +97,10 @@ def update(g, behavior_cost, behavior_util):
 
     return new_behavior_set, adopted_behaviors
 
-def compute_resource_utilization(g):
-    raise NotImplementedError
+def compute_resource_utilization(g, behavior_cost):
+    costs, resources = 0., np.sum(g.vs['r'])
+    for node in g.vs: costs += sum(behavior_cost[b] for b in node['behaviors'])
+    return costs/resources
 
 def run(g, num_behaviors=3, c=0., max_iter=None):
     behavior_cost, behavior_util = get_behaviors(num_behaviors)
