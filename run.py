@@ -91,6 +91,10 @@ def update(g, behavior_cost, behavior_util):
     for node in g.vs:
         new_behavior_set[node] = update_node(node, behavior_cost, behavior_util)
         adopted_behaviors.append(new_behavior_set[node])
+
+    for node, new_behaviors in new_behavior_set.items():
+        g.vs[node]['behaviors'] = g.vs[node]['behaviors'] + new_behaviors
+
     return new_behavior_set, adopted_behaviors
 
 def compute_resource_utilization(g):
